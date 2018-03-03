@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2018 by psalan (http://jsbin.com/belojij/4/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="Color-Clock">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="https://fonts.googleapis.com/css?family=Geostar" rel="stylesheet" type="text/css">
+  <title>Color Clock</title>
+<style id="jsbin-css">
+* { margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+}
+
+p {
+  font-size:2rem;
+  color: #ffffff;
+}
+
+#clock {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  font-family: 'Geostar', cursive;
+  font-size: 4rem;
+  margin-top: -2rem;
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+  <div id="clock">12:13:14</div>
+  <p id="demo">Hello</p>
+  <p id="demo2">bello</p>
+<script id="jsbin-javascript">
+function colorClock() {
+  //set variables of clock
+  var date = new Date();
+  var hours = date.getHours();
+  hours = addZero(hours);
+  var minutes = date.getMinutes();
+  minutes = addZero(minutes);
+  var seconds = date.getSeconds();
+  seconds = addZero(seconds);
+  var clockFace = hours + ':' + minutes + ':' + seconds;
+  var clock = document.getElementById("clock");
+  
+  // even or odd
+  var even = (function () {
+    if (seconds % 2 == 0) return '#' + minutes + hours + seconds;
+    else return '#' + hours + minutes + seconds;
+  })(hours, minutes, seconds);
+ 
+  // colors
+  var hexColor = even;
+  var hexColor2 = '#' + minutes + seconds + hours;
+  
+  // on display
+  clock.innerHTML = clockFace;
+  clock.style.background = hexColor;
+  document.body.style.background = hexColor2;
+  document.getElementById("demo").innerHTML = "Az óra háttérszíne: " + hexColor;
+  document.getElementById("demo2").innerHTML = "Az oldal háttérszíne: " + hexColor2;
+  
+  // timing
+  setTimeout(function () {colorClock(), 1000});
+  
+  // add zero to be two-digit
+  function addZero (numSingle) {
+    if (numSingle < 10) {
+      numSingle = '0' + numSingle;
+    }
+    return numSingle;
+  }
+}
+
+colorClock();
+
+</script>
+</body>
+</html>
